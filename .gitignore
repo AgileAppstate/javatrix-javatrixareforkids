@@ -27,3 +27,6 @@ hs_err_pid*
 
 #JAR files
 *.jar
+
+# VSCode stuff
+*.vscode
