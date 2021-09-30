@@ -22,6 +22,7 @@ public class Matrix
     {
         this.m = m;
         this.n = n;
+        this.matrix = new double[m][n];
 
         // Build matrix
         for (int i = 0; i < m; i++)
@@ -56,9 +57,7 @@ public class Matrix
     {
         this.m = m;
         this.n = n;
-
-        // Does this create copy or reference?
-        // this.data = A;
+        this.matrix = new double[m][n];
 
         // This creates copy.
         for (int i = 0; i < m; i++) 
@@ -79,6 +78,7 @@ public class Matrix
     {
         this.m = m;
         this.n = vals.length / m;
+        this.matrix = new double[m][n];
 
         // Create by column
         for (int j = 0; j < m; j++)
@@ -90,4 +90,6 @@ public class Matrix
             }
         }
     }
+
+
 }
