@@ -4,7 +4,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
-import jdk.jfr.Timestamp;
 import matrix.Matrix;
 
 public class MatrixTest {
@@ -77,6 +76,30 @@ public class MatrixTest {
         assertEquals(3, E.getRows());
         assertEquals(3, E.getColumns());
         assert(Arrays.equals(testE, E.getMatrixValues()));
+    }
+
+    @Test 
+    public void testMatrix_ScalarTimes()
+    {
+        double [][] testF = {{42, 21, 5}, {7, -19, 14}, {74, 0, 1}};
+        Matrix F = new Matrix(testF);
+        Matrix F1 = F.times(2);
+        double [][] testF2 = {{84, 42, 10}, {14, -38, 28}, {148, 0, 2}};
+        assert(Arrays.equals(testF, F1.getMatrixValues()));
+    }
+
+    @Test 
+    public void testMatrix_MatrixTimes()
+    {
+        double [][] testG1 = {{42, 21, 5, 10}, {7, -19, 14, 8}, {74, 0, 1, 84}};
+        double [][] testG2 = {{15, 2}, {63, -5}, {28, 0}, {-15, -26}};
+        Matrix G1 = new Matrix(testG1);
+        Matrix G2 = new Matrix(testG2);
+        Matrix G = G1.times(G2);
+        double [][] testG3 = {{1943, -281}, {-820, -99}, {-122, -2036}};
+        assertEquals(G1.getRows(), G.getRows());
+        assertEquals(G2.getColumns(), G.getColumns());
+        assert(Arrays.equals(testG3, G.getMatrixValues()));
     }
 
 }

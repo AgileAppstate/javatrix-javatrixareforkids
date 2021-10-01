@@ -22,7 +22,7 @@ public class Matrix
 
     public int getColumns()
     {
-        return this.column;
+        return this.columns;
     }
 
     // Issue: Create Matrix constructor from two dimension arguments initialized with constant value
@@ -56,12 +56,12 @@ public class Matrix
     {
         this.rows = A.length;
         this.columns = A[0].length;
-        this.matrix = new double[m][n];
+        this.matrix = new double[this.rows][this.columns];
 
         // Build matrix
-        for (int i = 0; i < m; i++)
+        for (int i = 0; i < this.rows; i++)
         {
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < this.columns; j++)
             {
                 this.matrix[i][j] = A[i][j];
             }
@@ -94,12 +94,12 @@ public class Matrix
     {
         this.rows = m;
         this.columns = vals.length / m;
-        this.matrix = new double[m][n];
+        this.matrix = new double[m][this.columns];
 
         // Create by column
-        for (int j = 0; j < m; j++)
+        for (int j = 0; j < this.rows; j++)
         {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < this.columns; i++)
             {
                 // Create matrix from columns
                 this.matrix[i][j] = vals[i + (j + (j * 2))];
@@ -133,7 +133,7 @@ public class Matrix
         double [][] newValues = new double [this.rows][this.columns];
         for (int i = 0; i < this.rows; i++)
         {
-            for (int j = 0; j < this.columns; j++)
+            for (int j = 0; j < B.getColumns(); j++)
             {
                 newValues[i][j] = 0;
                 for (int k = 0; k < this.columns; k++)
@@ -142,6 +142,6 @@ public class Matrix
                 }
             }
         }
-        return new Matrix(newValues, this.rows, this.columns);
+        return new Matrix(newValues, this.rows, B.getColumns());
     }
 }
