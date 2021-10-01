@@ -9,6 +9,22 @@ public class Matrix
     private int n;
     private double [][] matrix;
 
+    // Getters for testing purposes
+    public double [][] getMatrixValues()
+    {
+        return this.matrix;
+    }
+
+    public int getRows()
+    {
+        return this.m;
+    }
+
+    public int getColumns()
+    {
+        return this.n;
+    }
+
     // Issue: Create Matrix constructor from two dimension arguments initialized with constant value
     public Matrix(int m, int n)
     {
