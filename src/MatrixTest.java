@@ -2,6 +2,7 @@
 // package matrix;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import matrix.Matrix;
@@ -36,17 +37,17 @@ public class MatrixTest {
         Matrix A = new Matrix(3, 3);
         assertEquals(3, A.getRows());
         assertEquals(3, A.getColumns());
-        assert(Arrays.equals(testA, A.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testA, A.getMatrixValues()));
     }
 
     @Test 
     public void testMatrix_mns()
     {
-        double [][] testB = {{42, 4, 9}, {-1, 0, 7}, {-100, 32, 67}};
+        double [][] testB = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
         Matrix B = new Matrix(3, 3, 42);
         assertEquals(3, B.getRows());
         assertEquals(3, B.getColumns());
-        assert(Arrays.equals(testB, B.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testB, B.getMatrixValues()));
     }
 
     @Test 
@@ -56,7 +57,7 @@ public class MatrixTest {
         Matrix C = new Matrix(testC);
         assertEquals(3, C.getRows());
         assertEquals(3, C.getColumns());
-        assert(Arrays.equals(testC, C.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testC, C.getMatrixValues()));
     }
 
     @Test 
@@ -65,7 +66,7 @@ public class MatrixTest {
         double [][] testD = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
         Matrix D = new Matrix(testD);
         assertEquals(3, D.getRows());
-        assert(Arrays.equals(testD, D.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testD, D.getMatrixValues()));
     }
 
     @Test 
@@ -75,7 +76,7 @@ public class MatrixTest {
         Matrix E = new Matrix(testE);
         assertEquals(3, E.getRows());
         assertEquals(3, E.getColumns());
-        assert(Arrays.equals(testE, E.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testE, E.getMatrixValues()));
     }
 
     @Test 
@@ -85,7 +86,7 @@ public class MatrixTest {
         Matrix F = new Matrix(testF);
         Matrix F1 = F.times(2);
         double [][] testF2 = {{84, 42, 10}, {14, -38, 28}, {148, 0, 2}};
-        assert(Arrays.equals(testF, F1.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testF2, F1.getMatrixValues()));
     }
 
     @Test 
@@ -99,7 +100,7 @@ public class MatrixTest {
         double [][] testG3 = {{1943, -281}, {-820, -99}, {-122, -2036}};
         assertEquals(G1.getRows(), G.getRows());
         assertEquals(G2.getColumns(), G.getColumns());
-        assert(Arrays.equals(testG3, G.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(testG3, G.getMatrixValues()));
     }
 
 }
