@@ -3,7 +3,7 @@
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
+import java.util.Arrays;
 import jdk.jfr.Timestamp;
 import matrix.Matrix;
 
@@ -30,11 +30,53 @@ public class MatrixTest {
         System.out.println("E:" + E);
     }
 
-    // @Test 
-    // public void testMatrix()
-    // {
-    //     Matrix A = new Matrix(3, 3);
-    //     A.print()
+    @Test 
+    public void testMatrix_mn()
+    {
+        double [][] testA = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+        Matrix A = new Matrix(3, 3);
+        assertEquals(3, A.getRows());
+        assertEquals(3, A.getColumns());
+        assert(Arrays.equals(testA, A.getMatrixValues()));
+    }
 
-    // }
+    @Test 
+    public void testMatrix_mns()
+    {
+        double [][] testB = {{42, 4, 9}, {-1, 0, 7}, {-100, 32, 67}};
+        Matrix B = new Matrix(3, 3, 42);
+        assertEquals(3, B.getRows());
+        assertEquals(3, B.getColumns());
+        assert(Arrays.equals(testB, B.getMatrixValues()));
+    }
+
+    @Test 
+    public void testMatrix_A()
+    {
+        double [][] testC = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
+        Matrix C = new Matrix(testC);
+        assertEquals(3, C.getRows());
+        assertEquals(3, C.getColumns());
+        assert(Arrays.equals(testC, C.getMatrixValues()));
+    }
+
+    @Test 
+    public void testMatrix_Amn()
+    {
+        double [][] testD = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
+        Matrix D = new Matrix(testD);
+        assertEquals(3, D.getRows());
+        assert(Arrays.equals(testD, D.getMatrixValues()));
+    }
+
+    @Test 
+    public void testMatrix_Avalsm()
+    {
+        double [][] testE = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
+        Matrix E = new Matrix(testE);
+        assertEquals(3, E.getRows());
+        assertEquals(3, E.getColumns());
+        assert(Arrays.equals(testE, E.getMatrixValues()));
+    }
+
 }
