@@ -26,8 +26,6 @@ hs_err_pid*
 .classpath
 
 #JAR files
-!junit-platform-console-standalone-1.2.0.jar
-!checkstyle-5.5-.all.jar
 *.jar
 
 # VSCode stuff
