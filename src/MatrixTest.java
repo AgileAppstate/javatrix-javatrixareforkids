@@ -3,8 +3,13 @@
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import matrix.Matrix;
 
 public class MatrixTest {
@@ -28,6 +33,10 @@ public class MatrixTest {
         System.out.println("C:" + C);
         System.out.println("D:" + D);
         System.out.println("E:" + E);
+
+        double [][] testH = {{42.5, 21.033, 5, 10.10}, {7.3456, -19.2, 14.20, 8.333}, {74.5, 0, 1, 84.1}};
+		Matrix H = new Matrix(testH);
+        H.print(8, 2);
     }
 
     @Test 
@@ -103,4 +112,39 @@ public class MatrixTest {
         assertTrue(Arrays.deepEquals(testG3, G.getMatrixValues()));
     }
 
+    @Test
+	public void testMatrix_print() {
+        double [][] testH = {{42.5, 21.033, 5, 10.10}, {7.3456, -19.2, 14.20, 8.333}, {74.5, 0, 1, 84.1}};
+		Matrix H = new Matrix(testH);
+
+		// Redirect System.out to a string
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(baos));
+		
+		// Prep done, call function of interest
+		H.print(8, 2);
+
+        // Restore the stdout stream
+		System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+		
+		// Check for desired result
+		String s = baos.toString();
+
+        baos = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(baos));
+
+        H.print(5, 0);
+        String s2 = baos.toString();
+
+        // Restore the stdout stream
+		System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+
+		String expected = "   42.50   21.03    5.00   10.10\n    7.35  -19.20   14.20    8.33\n   74.50    0.00    1.00   84.10\n";
+        String expected2 = "   43   21    5   10\n    7  -19   14    8\n   75    0    1   84\n";
+		if (! expected.equals(s))
+			fail("Unexpected output:\n"+s+"\n");
+        
+        if (! expected2.equals(s2))
+			fail("Unexpected output:\n"+s+"\n");
+    }
 }

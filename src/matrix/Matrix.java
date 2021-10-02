@@ -144,4 +144,21 @@ public class Matrix
         }
         return new Matrix(newValues, this.rows, B.getColumns());
     }
+
+    /*
+     * w - Column width
+     * d - Number of decimal places
+     */
+    public void print(int w, int d)
+    {
+        for (int i = 0; i < this.rows; i++)
+        {
+            String row = "";
+            for (int j = 0; j < this.columns; j++)
+            {
+                row += String.format(("%" + w + "s"), String.format("%." + d + "f", this.matrix[i][j]));
+            }
+            System.out.println(row);
+        }
+    }
 }
