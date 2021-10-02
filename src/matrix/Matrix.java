@@ -1,5 +1,14 @@
 package matrix;
 
+/** 
+ * Matrix.java
+ * 
+ * Implements the Javatrix package.
+ * 
+ * @author Matt Sterckx, Jordan Greene
+ * @version 5666 Fall 2021
+*/
+
 public class Matrix
     extends java.lang.Object
     implements java.lang.Cloneable, java.io.Serializable
@@ -9,23 +18,13 @@ public class Matrix
     private int columns;
     private double [][] matrix;
 
-    // Getters for testing purposes
-    public double [][] getMatrixValues()
-    {
-        return this.matrix;
-    }
-
-    public int getRows()
-    {
-        return this.rows;
-    }
-
-    public int getColumns()
-    {
-        return this.columns;
-    }
-
-    // Issue: Create Matrix constructor from two dimension arguments initialized with constant value
+    /**
+     * Create Matrix constructor from two 
+     * dimension arguments initialized with constant value.
+     *
+     * @param m rows
+     * @param n columns
+     */
     public Matrix(int m, int n)
     {
         this.rows = m;
@@ -34,6 +33,13 @@ public class Matrix
         this.matrix = new double[m][n];
     }
 
+    /**
+     * Matrix constructor from row, column and constant.
+     * 
+     * @param m rows
+     * @param n columns
+     * @param s constant
+     */
     public Matrix(int m, int n, double s)
     {
         this.rows = m;
@@ -51,11 +57,16 @@ public class Matrix
 
     }
 
-    // Issue: Create constructor from 2D array
-    public Matrix(double[][] A)
+    // Issue: 
+    /**
+     * Create constructor from 2D array.
+     * 
+     * @param arrayA 3D array
+     */
+    public Matrix(double[][] arrayA)
     {
-        this.rows = A.length;
-        this.columns = A[0].length;
+        this.rows = arrayA.length;
+        this.columns = arrayA[0].length;
         this.matrix = new double[this.rows][this.columns];
 
         // Build matrix
@@ -63,13 +74,20 @@ public class Matrix
         {
             for (int j = 0; j < this.columns; j++)
             {
-                this.matrix[i][j] = A[i][j];
+                this.matrix[i][j] = arrayA[i][j];
             }
         }
 
     }
 
-    public Matrix(double[][] A, int m, int n)
+    /**
+     * Create constructor from array, row, column.
+     *  
+     * @param arrayA 3D array
+     * @param m rows
+     * @param n columns
+     */
+    public Matrix(double[][] arrayA, int m, int n)
     {
         this.rows = m;
         this.columns = n;
@@ -80,15 +98,17 @@ public class Matrix
         {
             for (int j = 0; j < n; j++) 
             {
-                this.matrix[i][j] = A[i][j];
+                this.matrix[i][j] = arrayA[i][j];
             }
         }
 
     }
 
-    /*
-     * vals - One-dimensional array of doubles, packed by columns (ala Fortran).
-     * m - Number of rows.
+    /**
+     * Construct matrix with array and row.
+     * 
+     * @param vals One-dimensional array of doubles, packed by columns
+     * @param m rows
      */
     public Matrix(double[] vals, int m)
     {
@@ -107,8 +127,11 @@ public class Matrix
         }
     }
 
-    /*
-     * s - Scalar value to multiply each element in matrix with
+    /**
+     * Multiply matrix by scalar.
+     * 
+     * @param s Scalar value
+     * @return matrix object
      */
     public Matrix times(double s)
     {
@@ -123,31 +146,40 @@ public class Matrix
         return new Matrix(newValues, this.rows, this.columns);
     }
 
-    /*
-     * B - Matrix to linearly multiply with
+    /**
+     * Multiply matrix by matrix.
+     * 
+     * @param arrayB Matrix to linearly multiply with
+     * @return matrix object
      */
-    public Matrix times(Matrix B)
+    public Matrix times(Matrix arrayB)
     {
-        if (this.getColumns() != B.getRows())
-            throw new IllegalArgumentException();
+        if (this.getColumns() != arrayB.getRows())
+        {
+            throw new 
+                IllegalArgumentException("Matrix inner dimensions must agree.");
+        }
         double [][] newValues = new double [this.rows][this.columns];
         for (int i = 0; i < this.rows; i++)
         {
-            for (int j = 0; j < B.getColumns(); j++)
+            for (int j = 0; j < arrayB.getColumns(); j++)
             {
                 newValues[i][j] = 0;
                 for (int k = 0; k < this.columns; k++)
                 {
-                    newValues[i][j] += (this.matrix[i][k] * B.getMatrixValues()[k][j]);
+                    newValues[i][j] += 
+                        (this.matrix[i][k] * arrayB.getMatrixValues()[k][j]);
                 }
             }
         }
-        return new Matrix(newValues, this.rows, B.getColumns());
+        return new Matrix(newValues, this.rows, arrayB.getColumns());
     }
 
-    /*
-     * w - Column width
-     * d - Number of decimal places
+    /**
+     * Print matrix with formating.
+     * 
+     * @param w Column width
+     * @param d Number of decimal places
      */
     public void print(int w, int d)
     {
@@ -156,9 +188,41 @@ public class Matrix
             String row = "";
             for (int j = 0; j < this.columns; j++)
             {
-                row += String.format(("%" + w + "s"), String.format("%." + d + "f", this.matrix[i][j]));
+                row += String.format(("%" + w + "s"), 
+                    String.format("%." + d + "f", this.matrix[i][j]));
             }
             System.out.println(row);
         }
+    }
+
+    // Getters for testing purposes
+    /** 
+     * Get matrix values in double form.
+     * 
+     * @return 3D array results
+     */
+    public double [][] getMatrixValues()
+    {
+        return this.matrix;
+    }
+
+    /**
+     * Return matrix rows.
+     * 
+     * @return matrix rows
+     */
+    public int getRows()
+    {
+        return this.rows;
+    }
+
+    /**
+     * Return matrix columns.
+     * 
+     * @return matrix columns
+     */
+    public int getColumns()
+    {
+        return this.columns;
     }
 }
