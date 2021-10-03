@@ -34,10 +34,12 @@ default:
 compile: MatrixTest.java matrix/Matrix.java $(JUNIT5_JAR)
 	javac -cp .:$(JUNIT5_JAR) MatrixTest.java
 	javac matrix/Matrix.java
+	javac Testtrix.java
 
 clean:
 	rm -f *~
 	rm -f Matrix*.class
+	rm -f Testtrix*.class
 	rm -f matrix/Matrix*.class
  
 check: matrix/Matrix.java $(CKSTYLE_XML)
