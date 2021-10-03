@@ -175,6 +175,37 @@ public class Matrix
         return new Matrix(newValues, this.rows, arrayB.getColumns());
     }
 
+
+    public static Matrix identity(int m, int n)
+    {
+        // Created with zeroes
+        Matrix matrixA = new Matrix(m, n);
+
+        // Insert 1's on diagonal
+        for (int i = 0; i < m; i++)
+        {
+            matrixA.set(i, j, 1);
+        }
+    }
+
+
+
+    public static Matrix random(int m, int n)
+    {
+        // Created with zeroes
+        Matrix matrixA = new Matrix(m, n);
+
+        // Insert random values 
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                matrixA.set(i, j, Math.random());
+            }
+        }
+
+    }
+
     /**
      * Print matrix with formating.
      * 
@@ -194,6 +225,7 @@ public class Matrix
             System.out.println(row);
         }
     }
+
 
     // Getters for testing purposes
     /** 
