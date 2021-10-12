@@ -154,7 +154,7 @@ public class Matrix
      */
     public Matrix times(Matrix arrayB)
     {
-        if (this.getColumns() != arrayB.getRows())
+        if (this.getColumnDimension() != arrayB.getRowDimension())
         {
             throw new 
                 IllegalArgumentException("Matrix inner dimensions must agree.");
@@ -162,7 +162,7 @@ public class Matrix
         double [][] newValues = new double [this.rows][this.columns];
         for (int i = 0; i < this.rows; i++)
         {
-            for (int j = 0; j < arrayB.getColumns(); j++)
+            for (int j = 0; j < arrayB.getColumnDimension(); j++)
             {
                 newValues[i][j] = 0;
                 for (int k = 0; k < this.columns; k++)
@@ -172,7 +172,7 @@ public class Matrix
                 }
             }
         }
-        return new Matrix(newValues, this.rows, arrayB.getColumns());
+        return new Matrix(newValues, this.rows, arrayB.getColumnDimension());
     }
 
     /**
@@ -291,7 +291,7 @@ public class Matrix
      * 
      * @return matrix rows
      */
-    public int getRows()
+    public int getRowDimension()
     {
         return this.rows;
     }
@@ -301,7 +301,7 @@ public class Matrix
      * 
      * @return matrix columns
      */
-    public int getColumns()
+    public int getColumnDimension()
     {
         return this.columns;
     }
