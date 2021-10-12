@@ -3,8 +3,12 @@
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
+
+import jdk.jfr.Timestamp;
+
 import java.util.Arrays;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
@@ -147,4 +151,23 @@ public class MatrixTest {
         if (! expected2.equals(s2))
 			fail("Unexpected output:\n"+s+"\n");
     }
+     
+    @Test
+    public void testTranspose()
+    {
+        double [][] arrayA = {{42.5, 21.033, 5, 10.10}, {7.3456, -19.2, 14.20, 8.333}, 
+                              {74.5, 0, 1, 84.1}};
+        double [][] arrayB = {{42.5, 7.3456, 74.5}, {21.033, -19.2, 0}, {5, 14.20, 1}, 
+                              {10.10, 8.333, 84.1}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix transA = testA.transpose();
+        assertTrue(Arrays.deepEquals(arrayB,
+                     transA.getMatrixValues()));
+        assertFalse(Arrays.deepEquals(arrayA,
+                     transA.getMatrixValues()));
+
+    }
+    
+    // TODO add set test!!
+
 }
