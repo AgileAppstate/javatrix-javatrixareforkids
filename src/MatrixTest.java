@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import jdk.jfr.Timestamp;
@@ -168,6 +170,24 @@ public class MatrixTest {
 
     }
     
+    @Test 
+    public void testIdentity()
+    {
+        double [][] arrayA = {{1, 0, 0, 0}, {0, 1, 0, 0},
+                              {0, 0, 1, 0}, {0, 0, 0, 1}};
+        double [][] arrayB = {{1, 0, 0}, {0, 1, 0},
+                              {0, 0, 1}};
+        Matrix identA = Matrix.identity(4, 4);
+        Matrix identB = Matrix.identity(3, 3);
+
+        assertTrue(Arrays.deepEquals(arrayA, identA.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(arrayB, identB.getMatrixValues()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Matrix.identity(3, 4);
+        });
+    }
+    
+    // TODO Random matrix test
     // TODO add set test!!
 
 }

@@ -175,21 +175,40 @@ public class Matrix
         return new Matrix(newValues, this.rows, arrayB.getColumns());
     }
 
-
+    /**
+     * Return identity matrix.
+     * 
+     * @param m Number of rows
+     * @param n Number of columns
+     * @return New identity matrix
+     */
     public static Matrix identity(int m, int n)
     {
+        // I must be square
+        if (m != n)
+        {
+            throw new 
+                IllegalArgumentException("Identity matrix must be square.");
+        }
         // Created with zeroes
-        Matrix matrixA = new Matrix(m, n);
+        Matrix matrixI = new Matrix(m, n);
 
         // Insert 1's on diagonal
         for (int i = 0; i < m; i++)
         {
-            matrixA.set(i, j, 1);
+            matrixI.set(i, i, 1);
         }
+        return matrixI;
     }
 
 
-
+    /**
+     * Return a randomized matrix.
+     * 
+     * @param m number of rows
+     * @param n number of columns
+     * @return New matrix with random number
+     */
     public static Matrix random(int m, int n)
     {
         // Created with zeroes
@@ -203,7 +222,7 @@ public class Matrix
                 matrixA.set(i, j, Math.random());
             }
         }
-
+        return matrixA;
     }
 
     /**
