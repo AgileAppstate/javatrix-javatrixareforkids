@@ -272,6 +272,12 @@ public class Matrix
      */
     public void set(int row, int column, double val)
     {
+        if (row < this.rows || row > this.rows ||
+            column < this.columns || column > this.columns)
+        {
+            throw new
+                ArrayIndexOutOfBoundsException("Matrix index out of range.");
+        }
         matrix[row][column] = val;
     }
 
