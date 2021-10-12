@@ -154,7 +154,7 @@ public class Matrix
      */
     public Matrix times(Matrix arrayB)
     {
-        if (this.getColumns() != arrayB.getRows())
+        if (this.getColumnDimension() != arrayB.getRowDimension())
         {
             throw new 
                 IllegalArgumentException("Matrix inner dimensions must agree.");
@@ -162,7 +162,7 @@ public class Matrix
         double [][] newValues = new double [this.rows][this.columns];
         for (int i = 0; i < this.rows; i++)
         {
-            for (int j = 0; j < arrayB.getColumns(); j++)
+            for (int j = 0; j < arrayB.getColumnDimension(); j++)
             {
                 newValues[i][j] = 0;
                 for (int k = 0; k < this.columns; k++)
@@ -172,7 +172,57 @@ public class Matrix
                 }
             }
         }
-        return new Matrix(newValues, this.rows, arrayB.getColumns());
+        return new Matrix(newValues, this.rows, arrayB.getColumnDimension());
+    }
+
+    /**
+     * Return identity matrix.
+     * 
+     * @param m Number of rows
+     * @param n Number of columns
+     * @return New identity matrix
+     */
+    public static Matrix identity(int m, int n)
+    {
+        // I must be square
+        if (m != n)
+        {
+            throw new 
+                IllegalArgumentException("Identity matrix must be square.");
+        }
+        // Created with zeroes
+        Matrix matrixI = new Matrix(m, n);
+
+        // Insert 1's on diagonal
+        for (int i = 0; i < m; i++)
+        {
+            matrixI.set(i, i, 1);
+        }
+        return matrixI;
+    }
+
+
+    /**
+     * Return a randomized matrix.
+     * 
+     * @param m number of rows
+     * @param n number of columns
+     * @return New matrix with random number
+     */
+    public static Matrix random(int m, int n)
+    {
+        // Created with zeroes
+        Matrix matrixA = new Matrix(m, n);
+
+        // Insert random values 
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                matrixA.set(i, j, Math.random());
+            }
+        }
+        return matrixA;
     }
 
     /**
@@ -195,6 +245,42 @@ public class Matrix
         }
     }
 
+    /**
+     * Transpose the matrix.
+     * 
+     * @return transposed matrix
+     */
+    public Matrix transpose()
+    {
+        Matrix matrixA = new Matrix(this.columns, this.rows);
+        for (int i = 0; i < this.rows; i++)
+        {
+            for (int j = 0; j < this.columns; j++)
+            {
+                matrixA.set(j, i, this.matrix[i][j]);
+            }
+        }
+        return matrixA;
+    }
+
+    /**
+     * Set a single element to value.
+     * 
+     * @param row matrix row
+     * @param column matrix column
+     * @param val value to be set
+     */
+    public void set(int row, int column, double val)
+    {
+        if (row < this.rows || row > this.rows ||
+            column < this.columns || column > this.columns)
+        {
+            throw new
+                ArrayIndexOutOfBoundsException("Matrix index out of range.");
+        }
+        matrix[row][column] = val;
+    }
+
     // Getters for testing purposes
     /** 
      * Get matrix values in double form.
@@ -211,7 +297,7 @@ public class Matrix
      * 
      * @return matrix rows
      */
-    public int getRows()
+    public int getRowDimension()
     {
         return this.rows;
     }
@@ -221,7 +307,7 @@ public class Matrix
      * 
      * @return matrix columns
      */
-    public int getColumns()
+    public int getColumnDimension()
     {
         return this.columns;
     }

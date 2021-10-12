@@ -3,8 +3,14 @@
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
+
+import jdk.jfr.Timestamp;
+
 import java.util.Arrays;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
@@ -44,8 +50,8 @@ public class MatrixTest {
     {
         double [][] testA = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
         Matrix A = new Matrix(3, 3);
-        assertEquals(3, A.getRows());
-        assertEquals(3, A.getColumns());
+        assertEquals(3, A.getRowDimension());
+        assertEquals(3, A.getColumnDimension());
         assertTrue(Arrays.deepEquals(testA, A.getMatrixValues()));
     }
 
@@ -54,8 +60,8 @@ public class MatrixTest {
     {
         double [][] testB = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
         Matrix B = new Matrix(3, 3, 42);
-        assertEquals(3, B.getRows());
-        assertEquals(3, B.getColumns());
+        assertEquals(3, B.getRowDimension());
+        assertEquals(3, B.getColumnDimension());
         assertTrue(Arrays.deepEquals(testB, B.getMatrixValues()));
     }
 
@@ -64,8 +70,8 @@ public class MatrixTest {
     {
         double [][] testC = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
         Matrix C = new Matrix(testC);
-        assertEquals(3, C.getRows());
-        assertEquals(3, C.getColumns());
+        assertEquals(3, C.getRowDimension());
+        assertEquals(3, C.getColumnDimension());
         assertTrue(Arrays.deepEquals(testC, C.getMatrixValues()));
     }
 
@@ -74,7 +80,7 @@ public class MatrixTest {
     {
         double [][] testD = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
         Matrix D = new Matrix(testD);
-        assertEquals(3, D.getRows());
+        assertEquals(3, D.getRowDimension());
         assertTrue(Arrays.deepEquals(testD, D.getMatrixValues()));
     }
 
@@ -83,8 +89,8 @@ public class MatrixTest {
     {
         double [][] testE = {{42, 42, 42}, {42, 42, 42}, {42, 42, 42}};
         Matrix E = new Matrix(testE);
-        assertEquals(3, E.getRows());
-        assertEquals(3, E.getColumns());
+        assertEquals(3, E.getRowDimension());
+        assertEquals(3, E.getColumnDimension());
         assertTrue(Arrays.deepEquals(testE, E.getMatrixValues()));
     }
 
@@ -107,8 +113,8 @@ public class MatrixTest {
         Matrix G2 = new Matrix(testG2);
         Matrix G = G1.times(G2);
         double [][] testG3 = {{1943, -281}, {-820, -99}, {-122, -2036}};
-        assertEquals(G1.getRows(), G.getRows());
-        assertEquals(G2.getColumns(), G.getColumns());
+        assertEquals(G1.getRowDimension(), G.getRowDimension());
+        assertEquals(G2.getColumnDimension(), G.getColumnDimension());
         assertTrue(Arrays.deepEquals(testG3, G.getMatrixValues()));
     }
 
@@ -147,4 +153,57 @@ public class MatrixTest {
         if (! expected2.equals(s2))
 			fail("Unexpected output:\n"+s+"\n");
     }
+     
+    @Test
+    public void testTranspose()
+    {
+        double [][] arrayA = {{42.5, 21.033, 5, 10.10}, {7.3456, -19.2, 14.20, 8.333}, 
+                              {74.5, 0, 1, 84.1}};
+        double [][] arrayB = {{42.5, 7.3456, 74.5}, {21.033, -19.2, 0}, {5, 14.20, 1}, 
+                              {10.10, 8.333, 84.1}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix transA = testA.transpose();
+        assertTrue(Arrays.deepEquals(arrayB,
+                     transA.getMatrixValues()));
+        assertFalse(Arrays.deepEquals(arrayA,
+                     transA.getMatrixValues()));
+
+    }
+    
+    @Test 
+    public void testIdentity()
+    {
+        double [][] arrayA = {{1, 0, 0, 0}, {0, 1, 0, 0},
+                              {0, 0, 1, 0}, {0, 0, 0, 1}};
+        double [][] arrayB = {{1, 0, 0}, {0, 1, 0},
+                              {0, 0, 1}};
+        Matrix identA = Matrix.identity(4, 4);
+        Matrix identB = Matrix.identity(3, 3);
+
+        assertTrue(Arrays.deepEquals(arrayA, identA.getMatrixValues()));
+        assertTrue(Arrays.deepEquals(arrayB, identB.getMatrixValues()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            Matrix.identity(3, 4);
+        });
+    }
+    
+    @Test 
+    public void testRandom()
+    {
+        Matrix randA = Matrix.random(3, 3);
+        double [][] arrayA = randA.getMatrixValues();
+
+        assertEquals(3, randA.getRowDimension());
+        assertEquals(3, randA.getColumnDimension());
+        
+        for (int i = 0; i < randA.getRowDimension(); i++)
+        {
+            for (int j = 0; j < randA.getColumnDimension(); j++)
+            { 
+                assertTrue(arrayA[i][j] >= 0.0 && arrayA[i][j] < 1.0);
+            }
+        }
+    }
+    // TODO add set test!!
+
 }
