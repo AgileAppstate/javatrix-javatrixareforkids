@@ -226,6 +226,35 @@ public class Matrix
         }
     }
 
+    /**
+     * Transpose the matrix.
+     * 
+     * @return transposed matrix
+     */
+    public Matrix transpose()
+    {
+        Matrix matrixA = new Matrix(this.columns, this.rows);
+        for (int i = 0; i < this.rows; i++)
+        {
+            for (int j = 0; j < this.columns; j++)
+            {
+                matrixA.set(j, i, this.matrix[i][j]);
+            }
+        }
+        return matrixA;
+    }
+
+    /**
+     * Set a single element to value.
+     * 
+     * @param row matrix row
+     * @param column matrix column
+     * @param val value to be set
+     */
+    public void set(int row, int column, double val)
+    {
+        matrix[row][column] = val;
+    }
 
     // Getters for testing purposes
     /** 
