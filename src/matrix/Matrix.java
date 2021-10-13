@@ -273,7 +273,8 @@ public class Matrix
      */
     public void set(int row, int column, double val)
     {
-        if (row < 0 || row >= this.rows || column < 0 || column >= this.columns)
+        if (row < 0 || row >= this.rows || 
+            column < 0 || column >= this.columns)
         {
             throw new
                 ArrayIndexOutOfBoundsException("Matrix index out of range.");
