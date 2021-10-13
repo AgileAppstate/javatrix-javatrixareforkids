@@ -121,8 +121,7 @@ public class Matrix
             for (int i = 0; i < this.columns; i++)
             {
                 // Create matrix from columns
-                // this.matrix[i][j] = vals[i + (j + (j * 2))];
-                this.matrix[j][i] = vals[i + (j + (j * 2))];
+                this.matrix[i][j] = vals[i + (j + (j * 2))];
             }
         }
     }
@@ -154,7 +153,8 @@ public class Matrix
      */
     public Matrix times(Matrix arrayB)
     {
-        if (this.getColumnDimension() != arrayB.getRowDimension())
+        if (this.getColumnDimension() != arrayB.getRowDimension() ||
+            this.getRowDimension() != arrayB.getColumnDimension())
         {
             throw new 
                 IllegalArgumentException("Matrix inner dimensions must agree.");
