@@ -20,6 +20,8 @@ public class MatrixDemo {
         System.out.println("1. Matrix(rows, columns)");
         System.out.println("2. Matrix(rows, columns, single value)");
         System.out.println("3. Matrix(rows, columns, value array)");
+        System.out.println("4. Identity Matrix");
+        System.out.println("5. Random Matrix");
         System.out.println("0. Exit");
         System.out.print("Enter selection: ");
 
@@ -67,6 +69,7 @@ public class MatrixDemo {
                     System.out.println("Matrix result:");
                     return matrixA.times(matrixT);
                 case 3:
+                    System.out.println("Matrix result:");
                     return matrixA.transpose();
                 // case 4:
                 //     break;
@@ -82,7 +85,7 @@ public class MatrixDemo {
                     System.out.println("Exiting");
                     System.exit(0);
                 default:
-                    System.out.println("Enter a valid selection.");
+                    System.out.println("\nEnter a valid selection.\n");
                     opsMenu();
             }
         } while (option != 0);
@@ -117,6 +120,7 @@ public class MatrixDemo {
                     }
                     result = opsLoop(matrix);
                     result.print(5, 1);
+                    System.out.println();
                     break;
                 case 2:
                     System.out.print("Enter rows: ");
@@ -135,6 +139,7 @@ public class MatrixDemo {
                     }
                     result = opsLoop(matrix);
                     result.print(5, 1);
+                    System.out.println();
                     break;
                 case 3:
                     System.out.print("Enter rows: ");
@@ -169,12 +174,40 @@ public class MatrixDemo {
                     }
                     result = opsLoop(matrix);
                     result.print(5, 1);
+                    System.out.println();
                     break;
 
-                // case 4:
-                //     break;
-                // case 5:
-                //     break;
+                case 4:
+                    System.out.print("Enter rows: ");
+                    m = scanner.nextInt();
+                    System.out.print("\nEnter columns: ");
+                    n = scanner.nextInt();
+                    matrix = Matrix.identity(m, n);
+                    System.out.println("Matrix created:");
+                    matrix.print(5, 1);
+                    if (inner)
+                    {
+                        return matrix;
+                    }
+                    result = opsLoop(matrix);
+                    result.print(5, 1);
+                    break;
+                case 5:
+                    System.out.print("Enter rows: ");
+                    m = scanner.nextInt();
+                    System.out.print("\nEnter columns: ");
+                    n = scanner.nextInt();
+                    matrix = Matrix.random(m, n);
+                    System.out.println("Matrix created:");
+                    matrix.print(5, 1);
+                    if (inner)
+                    {
+                        return matrix;
+                    }
+                    result = opsLoop(matrix);
+                    result.print(5, 1);
+                    System.out.println();
+                    break;
                 // case 6:
                 //     break;
                 // case 7:
@@ -185,7 +218,7 @@ public class MatrixDemo {
                     System.out.println("Demo Exit");
                     return null;
                 default:
-                    System.out.println("Enter a valid selection.");
+                    System.out.println("\nEnter a valid selection.\n");
                     createMenu();
             }
         } while (option != 0);

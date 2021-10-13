@@ -153,8 +153,7 @@ public class Matrix
      */
     public Matrix times(Matrix arrayB)
     {
-        if (this.getColumnDimension() != arrayB.getRowDimension() ||
-            this.getRowDimension() != arrayB.getColumnDimension())
+        if (this.getColumnDimension() != arrayB.getRowDimension())
         {
             throw new 
                 IllegalArgumentException("Matrix inner dimensions must agree.");
