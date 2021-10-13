@@ -22,6 +22,7 @@ default:
 	@echo "example: make check"
 	@echo "example: make checklocal"
 	@echo "example: make clean"
+	@echo "example: make demo"
 
 # makefile syntax
 #target-name: files dependent on (can use multiple lines by ending
@@ -31,10 +32,11 @@ default:
 #etc.
 #Essential that command lines start with single TAB character
 
-compile: MatrixTest.java matrix/Matrix.java $(JUNIT5_JAR)
+compile: MatrixTest.java matrix/Matrix.java MatrixDemo.java $(JUNIT5_JAR)
 	javac -cp .:$(JUNIT5_JAR) MatrixTest.java
 	javac matrix/Matrix.java
 	javac Testtrix.java
+	javac MatrixDemo.java
 
 clean:
 	rm -f *~
@@ -47,6 +49,10 @@ check: matrix/Matrix.java $(CKSTYLE_XML)
 
 checklocal: matrix/Matrix.java $(CKSTYLE_XML)
 	java $(CKSTYLE_COMMAND_LOCAL) -c $(CKSTYLE_XML) matrix/Matrix.java
+	
+demo: MatrixDemo.java
+	java -cp .:$(JUNIT5_JAR) MatrixDemo
+
 
 # help:
 # 	@echo "Just starting with make? Try these 4 make commands successively:"

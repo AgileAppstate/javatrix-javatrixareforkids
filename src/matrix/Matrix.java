@@ -58,7 +58,6 @@ public class Matrix
 
     }
 
-    // Issue: 
     /**
      * Create constructor from 2D array.
      * 
