@@ -9,13 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import jdk.jfr.Timestamp;
+// import jdk.jfr.Timestamp;
 
 import java.util.Arrays;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.lang.Math;
 import matrix.Matrix;
 
 public class MatrixTest {
@@ -203,6 +204,121 @@ public class MatrixTest {
                 assertTrue(arrayA[i][j] >= 0.0 && arrayA[i][j] < 1.0);
             }
         }
+    }
+
+    @Test
+    public void testLeftDivide()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double [][] arrayB =    {{20, 4, 10}, 
+                                {8, 40, 2}};
+        double [][] arrayC =    {{2, 2, 2},
+                                {2, 2, 2}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix testB = new Matrix(arrayB);
+        Matrix divA = testA.arrayLeftDivide(testB);
+        assertTrue(Arrays.deepEquals(arrayC,
+                     divA.getMatrixValues()));
+
+    }
+
+    @Test
+    public void testRightDivide()
+    {
+        double [][] arrayB =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double [][] arrayA =    {{20, 4, 10}, 
+                                {8, 40, 2}};
+        double [][] arrayC =    {{2, 2, 2},
+                                {2, 2, 2}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix testB = new Matrix(arrayB);
+        Matrix divA = testA.arrayRightDivide(testB);
+        assertTrue(Arrays.deepEquals(arrayC,
+                     divA.getMatrixValues()));
+
+    }
+
+    @Test
+    public void testArrayTimes()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double [][] arrayB =    {{20, 4, 10}, 
+                                {8, 40, 2}};
+        double [][] arrayC =    {{200, 8, 50},
+                                {32, 800, 2}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix testB = new Matrix(arrayB);
+        Matrix timesA = testA.arrayTimes(testB);
+        assertTrue(Arrays.deepEquals(arrayC,
+                     timesA.getMatrixValues()));
+
+    }
+
+    @Test
+    public void testPlus()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double [][] arrayB =    {{20, 4, 10}, 
+                                {8, 40, 2}};
+        double [][] arrayC =    {{30, 6, 15},
+                                {12, 60, 3}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix testB = new Matrix(arrayB);
+        Matrix plusA = testA.plus(testB);
+        assertTrue(Arrays.deepEquals(arrayC,
+                     plusA.getMatrixValues()));
+
+    }
+
+    @Test
+    public void testMinus()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double [][] arrayB =    {{20, 4, 10}, 
+                                {8, 40, 2}};
+        double [][] arrayC =    {{-10, -2, -5},
+                                {-4, -20, -1}};
+        Matrix testA = new Matrix(arrayA);
+        Matrix testB = new Matrix(arrayB);
+        Matrix minusA = testA.minus(testB);
+        assertTrue(Arrays.deepEquals(arrayC,
+                     minusA.getMatrixValues()));
+
+    }
+
+    @Test
+    public void testNorm1()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double norm1 = 22;
+        Matrix testA = new Matrix(arrayA);
+        assertTrue(testA.norm1() == norm1);
+    }
+
+    @Test
+    public void testNormF()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double normF = Math.sqrt(100 + 4 + 25 + 16 + 400 + 1);
+        Matrix testA = new Matrix(arrayA);
+        assertTrue(testA.normF() == normF);
+    }
+
+    @Test
+    public void testNormInf()
+    {
+        double [][] arrayA =    {{10, 2, 5}, 
+                                {4, 20, 1}};
+        double normInf = 25;
+        Matrix testA = new Matrix(arrayA);
+        assertTrue(testA.normInf() == normInf);
     }
     // TODO add set test!!
 
