@@ -1,5 +1,4 @@
 package matrix;
-import java.lang.Math;
 
 /** 
  * Matrix.java
@@ -272,8 +271,8 @@ public class Matrix
      */
     public void set(int row, int column, double val)
     {
-        if (row < 0 || row >= this.rows || 
-            column < 0 || column >= this.columns)
+        if (row < 0 || row >= this.rows 
+            || column < 0 || column >= this.columns)
         {
             throw new
                 ArrayIndexOutOfBoundsException("Matrix index out of range.");
@@ -306,9 +305,14 @@ public class Matrix
      */
     public Matrix arrayLeftDivide(Matrix b)
     {
-        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
-            throw new IllegalArgumentException("Matrices have different dimensions.");
-        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        if (b.getColumnDimension() != this.getColumnDimension() 
+            || b.getRowDimension() != this.getRowDimension())
+        {
+            throw new IllegalArgumentException(
+                "Matrices have different dimensions.");
+        }
+        Matrix c = new Matrix(this.getRowDimension(), 
+                              this.getColumnDimension());
         for (int i = 0; i < this.getRowDimension(); i++)
         {
             for (int j = 0; j < this.getColumnDimension(); j++)
@@ -327,9 +331,14 @@ public class Matrix
      */
     public Matrix arrayRightDivide(Matrix b)
     {
-        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
-            throw new IllegalArgumentException("Matrices have different dimensions.");
-        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        if (b.getColumnDimension() != this.getColumnDimension() 
+            || b.getRowDimension() != this.getRowDimension()) 
+        {
+            throw new IllegalArgumentException(
+                "Matrices have different dimensions.");
+        }
+        Matrix c = new Matrix(this.getRowDimension(), 
+                              this.getColumnDimension());
         for (int i = 0; i < this.getRowDimension(); i++)
         {
             for (int j = 0; j < this.getColumnDimension(); j++)
@@ -348,9 +357,14 @@ public class Matrix
      */
     public Matrix arrayTimes(Matrix b)
     {
-        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
-            throw new IllegalArgumentException("Matrices have different dimensions.");
-        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        if (b.getColumnDimension() != this.getColumnDimension() 
+            || b.getRowDimension() != this.getRowDimension())
+        {
+            throw new IllegalArgumentException(
+                "Matrices have different dimensions.");
+        }
+        Matrix c = new Matrix(this.getRowDimension(), 
+            this.getColumnDimension());
         for (int i = 0; i < this.getRowDimension(); i++)
         {
             for (int j = 0; j < this.getColumnDimension(); j++)
@@ -369,9 +383,14 @@ public class Matrix
      */
     public Matrix minus(Matrix b)
     {
-        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
-            throw new IllegalArgumentException("Matrices have different dimensions.");
-        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        if (b.getColumnDimension() != this.getColumnDimension() 
+            || b.getRowDimension() != this.getRowDimension())
+        {
+            throw new IllegalArgumentException(
+                "Matrices have different dimensions.");
+        }
+        Matrix c = new Matrix(this.getRowDimension(), 
+            this.getColumnDimension());
         for (int i = 0; i < this.getRowDimension(); i++)
         {
             for (int j = 0; j < this.getColumnDimension(); j++)
@@ -390,9 +409,14 @@ public class Matrix
      */
     public Matrix plus(Matrix b)
     {
-        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
-            throw new IllegalArgumentException("Matrices have different dimensions.");
-        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        if (b.getColumnDimension() != this.getColumnDimension() 
+            || b.getRowDimension() != this.getRowDimension())
+        {
+            throw new IllegalArgumentException(
+                "Matrices have different dimensions.");
+        }
+        Matrix c = new Matrix(this.getRowDimension(), 
+            this.getColumnDimension());
         for (int i = 0; i < this.getRowDimension(); i++)
         {
             for (int j = 0; j < this.getColumnDimension(); j++)
@@ -419,7 +443,9 @@ public class Matrix
                 colSum += this.get(i, j);
             }
             if (colSum > norm1)
+            {
                 norm1 = colSum;
+            }
         }
         return norm1;
     }
@@ -458,7 +484,9 @@ public class Matrix
                 rowSum += this.get(i, j);
             }
             if (rowSum > normInf)
+            {
                 normInf = rowSum;
+            }
         }
         return normInf;
     }
