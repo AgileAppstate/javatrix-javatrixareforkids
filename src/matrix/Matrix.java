@@ -121,7 +121,8 @@ public class Matrix
             for (int i = 0; i < this.columns; i++)
             {
                 // Create matrix from columns
-                this.matrix[i][j] = vals[i + (j + (j * 2))];
+                // this.matrix[i][j] = vals[i + (j + (j * 2))];
+                this.matrix[j][i] = vals[i + (j + (j * 2))];
             }
         }
     }
@@ -271,8 +272,8 @@ public class Matrix
      */
     public void set(int row, int column, double val)
     {
-        if (row < this.rows || row > this.rows ||
-            column < this.columns || column > this.columns)
+        if (row < 0 || row > this.rows ||
+            column < 0 || column > this.columns)
         {
             throw new
                 ArrayIndexOutOfBoundsException("Matrix index out of range.");
