@@ -1,4 +1,5 @@
 package matrix;
+import java.lang.Math;
 
 /** 
  * Matrix.java
@@ -57,7 +58,6 @@ public class Matrix
 
     }
 
-    // Issue: 
     /**
      * Create constructor from 2D array.
      * 
@@ -154,7 +154,7 @@ public class Matrix
      */
     public Matrix times(Matrix arrayB)
     {
-        if (this.getColumns() != arrayB.getRows())
+        if (this.getColumnDimension() != arrayB.getRowDimension())
         {
             throw new 
                 IllegalArgumentException("Matrix inner dimensions must agree.");
@@ -162,7 +162,7 @@ public class Matrix
         double [][] newValues = new double [this.rows][this.columns];
         for (int i = 0; i < this.rows; i++)
         {
-            for (int j = 0; j < arrayB.getColumns(); j++)
+            for (int j = 0; j < arrayB.getColumnDimension(); j++)
             {
                 newValues[i][j] = 0;
                 for (int k = 0; k < this.columns; k++)
@@ -172,7 +172,57 @@ public class Matrix
                 }
             }
         }
-        return new Matrix(newValues, this.rows, arrayB.getColumns());
+        return new Matrix(newValues, this.rows, arrayB.getColumnDimension());
+    }
+
+    /**
+     * Return identity matrix.
+     * 
+     * @param m Number of rows
+     * @param n Number of columns
+     * @return New identity matrix
+     */
+    public static Matrix identity(int m, int n)
+    {
+        // I must be square
+        if (m != n)
+        {
+            throw new 
+                IllegalArgumentException("Identity matrix must be square.");
+        }
+        // Created with zeroes
+        Matrix matrixI = new Matrix(m, n);
+
+        // Insert 1's on diagonal
+        for (int i = 0; i < m; i++)
+        {
+            matrixI.set(i, i, 1);
+        }
+        return matrixI;
+    }
+
+
+    /**
+     * Return a randomized matrix.
+     * 
+     * @param m number of rows
+     * @param n number of columns
+     * @return New matrix with random number
+     */
+    public static Matrix random(int m, int n)
+    {
+        // Created with zeroes
+        Matrix matrixA = new Matrix(m, n);
+
+        // Insert random values 
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                matrixA.set(i, j, Math.random());
+            }
+        }
+        return matrixA;
     }
 
     /**
@@ -195,6 +245,224 @@ public class Matrix
         }
     }
 
+    /**
+     * Transpose the matrix.
+     * 
+     * @return transposed matrix
+     */
+    public Matrix transpose()
+    {
+        Matrix matrixA = new Matrix(this.columns, this.rows);
+        for (int i = 0; i < this.rows; i++)
+        {
+            for (int j = 0; j < this.columns; j++)
+            {
+                matrixA.set(j, i, this.matrix[i][j]);
+            }
+        }
+        return matrixA;
+    }
+
+    /**
+     * Set a single element to value.
+     * 
+     * @param row matrix row
+     * @param column matrix column
+     * @param val value to be set
+     */
+    public void set(int row, int column, double val)
+    {
+        if (row < 0 || row >= this.rows || 
+            column < 0 || column >= this.columns)
+        {
+            throw new
+                ArrayIndexOutOfBoundsException("Matrix index out of range.");
+        }
+        matrix[row][column] = val;
+    }
+
+    /**
+     * Get a single element to value.
+     * 
+     * @param row matrix row
+     * @param column matrix column
+     * @return val at (row, column)
+     */
+    public double get(int row, int column)
+    {
+        if (row < 0 || row >= this.rows || column < 0 || column >= this.columns)
+        {
+            throw new
+                ArrayIndexOutOfBoundsException("Matrix index out of range.");
+        }
+        return this.matrix[row][column];
+    }
+
+    /**
+     * Element-by-element left division.
+     * 
+     * @param b matrix to divide elements of
+     * @return C = A .\ B
+     */
+    public Matrix arrayLeftDivide(Matrix b)
+    {
+        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
+            throw new IllegalArgumentException("Matrices have different dimensions.");
+        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                c.set(i, j, (b.get(i, j) / this.get(i, j)));
+            }
+        }
+        return c;
+    }
+
+    /**
+     * Element-by-element right division.
+     * 
+     * @param b matrix to divide elements of
+     * @return C = A ./ B
+     */
+    public Matrix arrayRightDivide(Matrix b)
+    {
+        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
+            throw new IllegalArgumentException("Matrices have different dimensions.");
+        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                c.set(i, j, (this.get(i, j) / b.get(i, j)));
+            }
+        }
+        return c;
+    }
+
+    /**
+     * Element-by-element multiplication.
+     * 
+     * @param b matrix to multiply elements of
+     * @return C = A .* B
+     */
+    public Matrix arrayTimes(Matrix b)
+    {
+        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
+            throw new IllegalArgumentException("Matrices have different dimensions.");
+        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                c.set(i, j, (b.get(i, j) * this.get(i, j)));
+            }
+        }
+        return c;
+    }
+
+    /**
+     * Element-wise subtraction for two matrices.
+     * 
+     * @param b matrix to subtract elements of
+     * @return C = A - B
+     */
+    public Matrix minus(Matrix b)
+    {
+        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
+            throw new IllegalArgumentException("Matrices have different dimensions.");
+        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                c.set(i, j, (this.get(i, j) - b.get(i, j)));
+            }
+        }
+        return c;
+    }
+
+    /**
+     * Element-wise addition for two matrices.
+     * 
+     * @param b matrix to add elements of
+     * @return C = A + B
+     */
+    public Matrix plus(Matrix b)
+    {
+        if (b.getColumnDimension() != this.getColumnDimension() || b.getRowDimension() != this.getRowDimension())
+            throw new IllegalArgumentException("Matrices have different dimensions.");
+        Matrix c = new Matrix(this.getRowDimension(), this.getColumnDimension());
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                c.set(i, j, (b.get(i, j) + this.get(i, j)));
+            }
+        }
+        return c;
+    }
+
+    /**
+     * Return one norm.
+     * 
+     * @return one norm
+     */
+    public double norm1()
+    {
+        double norm1 = 0;
+        for (int j = 0; j < this.getColumnDimension(); j++)
+        {
+            double colSum = 0;
+            for (int i = 0; i < this.getRowDimension(); i++)
+            {
+                colSum += this.get(i, j);
+            }
+            if (colSum > norm1)
+                norm1 = colSum;
+        }
+        return norm1;
+    }
+
+    /**
+     * Return Frobenius norm.
+     * 
+     * @return Frobenius norm
+     */
+    public double normF()
+    {
+        double normF = 0;
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                normF += Math.pow(this.get(i, j), 2);
+            }
+        }
+        return Math.sqrt(normF);
+    }
+
+    /**
+     * Return infinity norm.
+     * 
+     * @return infinity norm
+     */
+    public double normInf()
+    {
+        double normInf = 0;
+        for (int i = 0; i < this.getRowDimension(); i++)
+        {
+            double rowSum = 0;
+            for (int j = 0; j < this.getColumnDimension(); j++)
+            {
+                rowSum += this.get(i, j);
+            }
+            if (rowSum > normInf)
+                normInf = rowSum;
+        }
+        return normInf;
+    }
+
     // Getters for testing purposes
     /** 
      * Get matrix values in double form.
@@ -211,7 +479,7 @@ public class Matrix
      * 
      * @return matrix rows
      */
-    public int getRows()
+    public int getRowDimension()
     {
         return this.rows;
     }
@@ -221,7 +489,7 @@ public class Matrix
      * 
      * @return matrix columns
      */
-    public int getColumns()
+    public int getColumnDimension()
     {
         return this.columns;
     }
