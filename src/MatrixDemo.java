@@ -39,6 +39,11 @@ public class MatrixDemo {
         System.out.println("1. Matrix multiplication by scalar");
         System.out.println("2. Matrix multiplication by matrix");
         System.out.println("3. Matrix transpose");
+        System.out.println("4. Matrix addition");
+        System.out.println("5. Matrix subtraction");
+        System.out.println("6. Matrix element-wise multiplication");
+        System.out.println("7. Matrix element-wise left-division");
+        System.out.println("8. Matrix element-wise right-division");
         System.out.println("0. Exit");
         System.out.print("Enter selection: ");
 
@@ -54,7 +59,7 @@ public class MatrixDemo {
 
         do {
             option = opsMenu();
-
+            Matrix matrixT = null;
             switch (option)
             {
                 case 1:
@@ -64,23 +69,43 @@ public class MatrixDemo {
                     return matrixA.times(val);
                 case 2:
                     System.out.print("Create matrix to multiply by: ");
-                    Matrix matrixT = matrixLoop(true);
+                    matrixT = matrixLoop(true);
                     //TODO try/catch for exception
                     System.out.println("Matrix result:");
                     return matrixA.times(matrixT);
                 case 3:
                     System.out.println("Matrix result:");
                     return matrixA.transpose();
-                // case 4:
-                //     break;
-                // case 5:
-                //     break;
-                // case 6:
-                //     break;
-                // case 7:
-                //     break;
-                // case 8:
-                //     break;
+                case 4:
+                    System.out.print("Create matrix to add to: ");
+                    matrixT = matrixLoop(true);
+                    //TODO try/catch for exception
+                    System.out.println("Matrix result:");
+                    return matrixA.plus(matrixT);
+                case 5:
+                    System.out.print("Create matrix to subtract with: ");
+                    matrixT = matrixLoop(true);
+                    //TODO try/catch for exception
+                    System.out.println("Matrix result:");
+                    return matrixA.minus(matrixT);
+                case 6:
+                    System.out.print("Create matrix to element-wise multiply by: ");
+                    matrixT = matrixLoop(true);
+                    //TODO try/catch for exception
+                    System.out.println("Matrix result:");
+                    return matrixA.arrayTimes(matrixT);
+                case 7:
+                    System.out.print("Create matrix to left-divide by: ");
+                    matrixT = matrixLoop(true);
+                    //TODO try/catch for exception
+                    System.out.println("Matrix result:");
+                    return matrixA.arrayLeftDivide(matrixT);
+                case 8:
+                    System.out.print("Create matrix to right-divide by: ");
+                    matrixT = matrixLoop(true);
+                    //TODO try/catch for exception
+                    System.out.println("Matrix result:");
+                    return matrixA.arrayRightDivide(matrixT);
                 case 0:
                     System.out.println("Exiting");
                     System.exit(0);
