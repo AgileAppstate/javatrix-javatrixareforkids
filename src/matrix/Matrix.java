@@ -281,6 +281,91 @@ public class Matrix
         matrix[row][column] = val;
     }
 
+    /**
+     * Element-by-element left division.
+     * 
+     * @param b matrix to divide elements of
+     * @return C = A .\ B
+     */
+    public Matrix arrayLeftDivide(Matrix b)
+    {
+        return this;
+    }
+
+    /**
+     * Element-by-element right division.
+     * 
+     * @param b matrix to divide elements of
+     * @return C = A ./ B
+     */
+    public Matrix arrayRightDivide(Matrix b)
+    {
+        return this;
+    }
+
+    /**
+     * Element-by-element multiplication.
+     * 
+     * @param b matrix to multiply elements of
+     * @return C = A .* B
+     */
+    public Matrix arrayTimes(Matrix b)
+    {
+        return this;
+    }
+
+    /**
+     * Element-wise subtraction for two matrices.
+     * 
+     * @param b matrix to subtract elements of
+     * @return C = A - B
+     */
+    public Matrix minus(Matrix b)
+    {
+        return this;
+    }
+
+    /**
+     * Element-wise addition for two matrices.
+     * 
+     * @param b matrix to add elements of
+     * @return C = A + B
+     */
+    public Matrix plus(Matrix b)
+    {
+        return this;
+    }
+
+    /**
+     * Return one norm.
+     * 
+     * @return one norm
+     */
+    public double norm1()
+    {
+        return 0;
+    }
+
+    /**
+     * Return Frobenius norm.
+     * 
+     * @return Frobenius norm
+     */
+    public double normF()
+    {
+        return 0;
+    }
+
+    /**
+     * Return infinity norm.
+     * 
+     * @return infinity norm
+     */
+    public double normInf()
+    {
+        return 0;
+    }
+
     // Getters for testing purposes
     /** 
      * Get matrix values in double form.
