@@ -44,6 +44,7 @@ public class MatrixDemo {
         System.out.println("6. Matrix element-wise multiplication");
         System.out.println("7. Matrix element-wise left-division");
         System.out.println("8. Matrix element-wise right-division");
+        System.out.println("9. Frobenius norm");
         System.out.println("0. Exit");
         System.out.print("Enter selection: ");
 
@@ -106,6 +107,10 @@ public class MatrixDemo {
                     //TODO try/catch for exception
                     System.out.println("Matrix result:");
                     return matrixA.arrayRightDivide(matrixT);
+                case 9:
+                    //TODO try/catch for exception
+                    System.out.println("Frobenius norm:");
+                    return new Matrix(1, 1, matrixA.normF());
                 case 0:
                     System.out.println("Exiting");
                     System.exit(0);
